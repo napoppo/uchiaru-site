@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ご意見・要望 管理 (本番) | うちある？</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; color: #1f2521; background: #f7f8f4; line-height: 1.7; }
+    header { position: sticky; top: 0; z-index: 1; background: rgba(247, 248, 244, 0.96); border-bottom: 1px solid #dfe5dc; backdrop-filter: blur(8px); }
+    .bar { max-width: 1080px; margin: 0 auto; padding: 14px 18px; display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+    main { max-width: 1080px; margin: 0 auto; padding: 24px 18px 72px; }
+    h1 { font-size: 22px; margin: 0; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    input, select, button { font: inherit; }
+    input, select { box-sizing: border-box; width: 100%; padding: 10px 12px; border: 1px solid #cfd8cc; border-radius: 8px; background: #fff; }
+    button { border: 0; border-radius: 8px; padding: 10px 14px; background: #2e7d52; color: #fff; font-weight: 700; cursor: pointer; }
+    button.secondary { background: #e9efe6; color: #2e7d52; }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
+    .card { background: #fff; border: 1px solid #dfe5dc; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+    .login { max-width: 420px; }
+    .stack { display: grid; gap: 12px; }
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .muted { color: #6d746d; font-size: 13px; }
+    .error { color: #b42318; }
+    .feedback { display: grid; gap: 10px; }
+    .feedback-header { display: flex; gap: 12px; justify-content: space-between; align-items: flex-start; }
+    .body { white-space: pre-wrap; word-break: break-word; }
+    .screenshot { max-width: min(420px, 100%); border: 1px solid #dfe5dc; border-radius: 8px; display: block; }
+    .pill { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 999px; background: #e9efe6; color: #2e7d52; font-size: 12px; font-weight: 700; }
+    .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 4px 14px; color: #6d746d; font-size: 13px; }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <h1>ご意見・要望 管理 <span class="pill" style="background:#ffe4e6;color:#b42318;">本番</span></h1>
+      <div class="row">
+        <span id="userLabel" class="muted"></span>
+        <button id="signOutButton" class="secondary hidden" type="button">ログアウト</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="loginCard" class="card login">
+      <h2>管理者ログイン</h2>
+      <div class="stack">
+        <input id="emailInput" type="email" autocomplete="username" placeholder="メールアドレス">
+        <input id="passwordInput" type="password" autocomplete="current-password" placeholder="パスワード">
+        <button id="loginButton" type="button">ログイン</button>
+        <p id="loginError" class="muted error"></p>
+      </div>
+    </section>
+
+    <section id="adminContent" class="hidden">
+      <div class="card">
+        <div class="row">
+          <select id="statusFilter" style="max-width: 220px;">
+            <option value="all">すべて</option>
+            <option value="new">未対応</option>
+            <option value="reviewing">確認中</option>
+            <option value="done">対応済み</option>
+          </select>
+          <button id="reloadButton" class="secondary" type="button">再読み込み</button>
+        </div>
+        <p id="statusText" class="muted">読み込み待ちです。</p>
+      </div>
+      <div id="feedbackList"></div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      limit,
+      orderBy,
+      query,
+      updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA2MLCWPLHwDu-atrapWqkhI73Pi-TMiAU",
+      authDomain: "uchiaru-prod.firebaseapp.com",
+      projectId: "uchiaru-prod",
+      storageBucket: "uchiaru-prod.firebasestorage.app",
+      messagingSenderId: "305191716227",
+      appId: "1:305191716227:web:801805792145d7a29862b6",
+      measurementId: "G-R8DFS28LHM"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const loginCard = document.getElementById("loginCard");
+    const adminContent = document.getElementById("adminContent");
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const loginButton = document.getElementById("loginButton");
+    const loginError = document.getElementById("loginError");
+    const userLabel = document.getElementById("userLabel");
+    const signOutButton = document.getElementById("signOutButton");
+    const reloadButton = document.getElementById("reloadButton");
+    const statusFilter = document.getElementById("statusFilter");
+    const statusText = document.getElementById("statusText");
+    const feedbackList = document.getElementById("feedbackList");
+
+    loginButton.addEventListener("click", async () => {
+      loginError.textContent = "";
+      loginButton.disabled = true;
+      try {
+        await signInWithEmailAndPassword(auth, emailInput.value.trim(), passwordInput.value);
+      } catch (error) {
+        loginError.textContent = "ログインに失敗しました。メールアドレスとパスワードを確認してください。";
+      } finally {
+        loginButton.disabled = false;
+      }
+    });
+
+    passwordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") loginButton.click();
+    });
+
+    signOutButton.addEventListener("click", () => signOut(auth));
+    reloadButton.addEventListener("click", () => loadFeedback());
+    statusFilter.addEventListener("change", () => loadFeedback());
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        loginCard.classList.remove("hidden");
+        adminContent.classList.add("hidden");
+        signOutButton.classList.add("hidden");
+        userLabel.textContent = "";
+        return;
+      }
+
+      loginCard.classList.add("hidden");
+      adminContent.classList.remove("hidden");
+      signOutButton.classList.remove("hidden");
+      userLabel.textContent = user.email || user.uid;
+      await loadFeedback();
+    });
+
+    async function loadFeedback() {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      statusText.textContent = "読み込み中...";
+      feedbackList.innerHTML = "";
+      try {
+        const filter = statusFilter.value;
+        const snap = await getDocs(query(collection(db, "feedback"), orderBy("createdAt", "desc"), limit(100)));
+        const items = snap.docs
+          .map((item) => ({ id: item.id, ...item.data() }))
+          .filter((item) => filter === "all" || (item.status || "new") === filter);
+        statusText.textContent = `${items.length} 件を表示しています。`;
+        feedbackList.innerHTML = items.map(renderFeedback).join("");
+        bindStatusButtons();
+      } catch (error) {
+        statusText.textContent = "読み込みに失敗しました。管理者権限または Firestore ルールを確認してください。";
+      }
+    }
+
+    function renderFeedback(item) {
+      const createdAt = item.createdAt?.toDate ? item.createdAt.toDate().toLocaleString("ja-JP") : "日時不明";
+      const status = item.status || "new";
+      return `
+        <article class="card feedback">
+          <div class="feedback-header">
+            <span class="pill">${escapeHtml(statusLabel(status))}</span>
+            <span class="muted">${escapeHtml(createdAt)}</span>
+          </div>
+          <div class="body">${escapeHtml(item.body || "")}</div>
+          ${item.screenshotUrl ? `
+            <a href="${escapeAttr(item.screenshotUrl)}" target="_blank" rel="noopener">
+              <img class="screenshot" src="${escapeAttr(item.screenshotUrl)}" alt="添付スクリーンショット">
+            </a>
+          ` : ""}
+          <div class="meta">
+            <div>userId: ${escapeHtml(item.userId || "-")}</div>
+            <div>email: ${escapeHtml(item.email || "-")}</div>
+            <div>contact: ${escapeHtml(item.contact || "-")}</div>
+            <div>groupId: ${escapeHtml(item.groupId || "-")}</div>
+            <div>platform: ${escapeHtml(item.platform || "-")}</div>
+            <div>appVersion: ${escapeHtml(item.appVersion || "-")}</div>
+            <div>screenshot: ${escapeHtml(item.screenshotName || item.screenshotPath || "-")}</div>
+          </div>
+          <div class="row">
+            <button class="secondary status-button" data-id="${escapeHtml(item.id)}" data-status="new" type="button">未対応</button>
+            <button class="secondary status-button" data-id="${escapeHtml(item.id)}" data-status="reviewing" type="button">確認中</button>
+            <button class="secondary status-button" data-id="${escapeHtml(item.id)}" data-status="done" type="button">対応済み</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function bindStatusButtons() {
+      for (const button of document.querySelectorAll(".status-button")) {
+        button.addEventListener("click", async () => {
+          button.disabled = true;
+          await updateDoc(doc(db, "feedback", button.dataset.id), {
+            status: button.dataset.status,
+            updatedAt: new Date()
+          });
+          await loadFeedback();
+        });
+      }
+    }
+
+    function statusLabel(status) {
+      if (status === "reviewing") return "確認中";
+      if (status === "done") return "対応済み";
+      return "未対応";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replaceAll("`", "&#096;");
+    }
+  </script>
+</body>
+</html>
