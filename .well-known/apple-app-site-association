@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "WS6RP5LMCG.com.napoppo.uchiaru",
+        "paths": ["/invite.html", "/invite/*"]
+      },
+      {
+        "appID": "WS6RP5LMCG.com.napoppo.uchiaru.dev",
+        "paths": ["/invite.html", "/invite/*"]
+      }
+    ]
+  }
+}

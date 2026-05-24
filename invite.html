@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>うちある？ 招待</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; color: #1f2521; background: #f7f8f4; line-height: 1.8; }
+    main { max-width: 620px; margin: 0 auto; padding: 48px 20px; text-align: center; }
+    h1 { font-size: 28px; margin: 0 0 12px; }
+    p { margin: 0 0 18px; color: #5f665f; }
+    .code { display: inline-block; margin: 12px 0 20px; padding: 10px 16px; border-radius: 10px; background: #fff; border: 1px solid #dfe5dc; font-size: 24px; font-weight: 800; letter-spacing: 0.16em; color: #2e7d52; }
+    .note { font-size: 13px; color: #8a918b; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>うちある？の招待リンク</h1>
+    <p>アプリがインストール済みの場合、このリンクからグループ参加画面が開きます。</p>
+    <div id="code" class="code" hidden></div>
+    <p class="note">開かない場合は、アプリの「グループ共有」から招待コードを入力してください。</p>
+  </main>
+  <script>
+    const code = new URLSearchParams(location.search).get('code');
+    if (code) {
+      const el = document.getElementById('code');
+      el.textContent = code.toUpperCase();
+      el.hidden = false;
+    }
+  </script>
+</body>
+</html>
