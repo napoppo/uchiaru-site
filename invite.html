@@ -9,29 +9,48 @@
     main { max-width: 620px; margin: 0 auto; padding: 48px 20px; text-align: center; }
     h1 { font-size: 28px; margin: 0 0 12px; }
     p { margin: 0 0 18px; color: #5f665f; }
-    .button { display: inline-block; margin: 0 0 16px; padding: 12px 18px; border-radius: 999px; background: #2e7d52; color: #fff; font-weight: 800; text-decoration: none; }
+    .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 0 0 16px; }
+    .button { display: inline-block; padding: 12px 18px; border-radius: 999px; background: #2e7d52; color: #fff; font-weight: 800; text-decoration: none; border: 0; font: inherit; line-height: 1.2; cursor: pointer; }
+    .button.secondary { background: #fff; color: #2e7d52; border: 1px solid #cfdccd; }
     .code { display: inline-block; margin: 12px 0 20px; padding: 10px 16px; border-radius: 10px; background: #fff; border: 1px solid #dfe5dc; font-size: 24px; font-weight: 800; letter-spacing: 0.16em; color: #2e7d52; }
     .note { font-size: 13px; color: #8a918b; }
+    .status { min-height: 1.8em; font-size: 13px; color: #2e7d52; }
   </style>
 </head>
 <body>
   <main>
     <h1>うちある？の招待リンク</h1>
     <p>アプリがインストール済みの場合、このリンクからグループ参加画面が開きます。</p>
-    <a id="open-app" class="button" href="#" hidden>アプリで開く</a>
+    <div class="actions">
+      <a id="open-app" class="button" href="#" hidden>アプリで開く</a>
+      <button id="copy-code" class="button secondary" type="button" hidden>コードをコピー</button>
+    </div>
     <div id="code" class="code" hidden></div>
+    <div id="copy-status" class="status" role="status" aria-live="polite"></div>
     <p class="note">開かない場合は、アプリの「グループ共有」から招待コードを入力してください。</p>
   </main>
   <script>
     const code = new URLSearchParams(location.search).get('code');
     if (code) {
-      const appUrl = `uchiaru://invite?code=${encodeURIComponent(code.toUpperCase())}`;
+      const normalizedCode = code.toUpperCase();
+      const appUrl = `uchiaru://invite?code=${encodeURIComponent(normalizedCode)}`;
       const button = document.getElementById('open-app');
       button.href = appUrl;
       button.hidden = false;
       const el = document.getElementById('code');
-      el.textContent = code.toUpperCase();
+      el.textContent = normalizedCode;
       el.hidden = false;
+      const copyButton = document.getElementById('copy-code');
+      const copyStatus = document.getElementById('copy-status');
+      copyButton.hidden = false;
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(normalizedCode);
+          copyStatus.textContent = 'コピーしました';
+        } catch (_) {
+          copyStatus.textContent = 'コードを長押ししてコピーしてください';
+        }
+      });
       setTimeout(() => {
         location.href = appUrl;
       }, 350);
