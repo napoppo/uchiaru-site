@@ -232,7 +232,8 @@
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 8px; }
     .pain-card { background: var(--surface); border: 1px solid var(--divider); border-radius: 22px; padding: 34px 28px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
     .pain-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-sm); }
-    .pain-card .emoji { width: 70px; height: 70px; margin: 0 auto 18px; border-radius: 22px; display: grid; place-items: center; font-size: 34px; background: var(--green-light); }
+    .pain-card .illust { height: 150px; margin: 0 auto 14px; display: grid; place-items: end center; }
+    .pain-card .illust svg { height: 150px; width: auto; }
     .pain-card h3 { font-size: 18px; margin: 0 0 8px; font-weight: 800; }
     .pain-card p { margin: 0; color: var(--muted); font-size: 14px; }
     @media (max-width: 760px) { .pain-grid { grid-template-columns: 1fr; } }
@@ -390,9 +391,66 @@
           <h2 class="keep">家の「あるある」、<br>まるごと解決。</h2>
         </div>
         <div class="pain-grid">
-          <div class="pain-card reveal"><div class="emoji">🤔</div><h3 class="keep">「まだあったっけ？」</h3><p class="keep">分からず、つい買いすぎ。</p></div>
-          <div class="pain-card reveal"><div class="emoji">🛍️</div><h3 class="keep">「同じの買っちゃった」</h3><p class="keep">家族でダブり買い。</p></div>
-          <div class="pain-card reveal"><div class="emoji">📢</div><h3 class="keep">「言い忘れた」</h3><p class="keep">伝え忘れて買い忘れ。</p></div>
+          <div class="pain-card reveal">
+            <div class="illust">
+              <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="在庫が分からず悩む様子">
+                <ellipse cx="100" cy="150" rx="72" ry="8" fill="#E9F2E4"/>
+                <rect x="46" y="48" width="108" height="98" rx="14" fill="#fff" stroke="#477A35" stroke-width="3"/>
+                <line x1="46" y1="97" x2="154" y2="97" stroke="#477A35" stroke-width="3"/>
+                <rect x="63" y="60" width="18" height="31" rx="5" fill="#CFE6BC"/><rect x="67" y="54" width="10" height="9" rx="2" fill="#477A35"/>
+                <rect x="91" y="60" width="18" height="31" rx="5" fill="#CFE6BC"/><rect x="95" y="54" width="10" height="9" rx="2" fill="#477A35"/>
+                <rect x="119" y="60" width="18" height="31" rx="5" fill="#CFE6BC"/><rect x="123" y="54" width="10" height="9" rx="2" fill="#477A35"/>
+                <rect x="78" y="108" width="18" height="31" rx="5" fill="#F7E3C5"/><rect x="82" y="102" width="10" height="9" rx="2" fill="#E0902E"/>
+                <rect x="106" y="108" width="18" height="31" rx="5" fill="#F7E3C5"/><rect x="110" y="102" width="10" height="9" rx="2" fill="#E0902E"/>
+                <circle cx="158" cy="30" r="22" fill="#fff" stroke="#477A35" stroke-width="3"/>
+                <path d="M150 25 a8 8 0 0 1 15 1 c0 5 -7 6 -7 11" stroke="#477A35" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="158" cy="42" r="2.2" fill="#477A35"/>
+                <circle cx="135" cy="50" r="4.5" fill="#fff" stroke="#477A35" stroke-width="2.4"/>
+              </svg>
+            </div>
+            <h3 class="keep">「まだあったっけ？」</h3><p class="keep">分からず、つい買いすぎ。</p>
+          </div>
+          <div class="pain-card reveal">
+            <div class="illust">
+              <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="同じものをダブって買ってしまう様子">
+                <ellipse cx="100" cy="150" rx="72" ry="8" fill="#E9F2E4"/>
+                <g>
+                  <path d="M44 74 h46 a4 4 0 0 1 4 4 l4 56 a6 6 0 0 1 -6 6 h-50 a6 6 0 0 1 -6 -6 l4 -56 a4 4 0 0 1 4 -4 z" fill="#CFE6BC" stroke="#477A35" stroke-width="3"/>
+                  <path d="M54 74 v-7 a13 13 0 0 1 26 0 v7" fill="none" stroke="#477A35" stroke-width="3"/>
+                  <path d="M64 92 l5 5 9 -10" stroke="#477A35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <g>
+                  <path d="M104 74 h46 a4 4 0 0 1 4 4 l4 56 a6 6 0 0 1 -6 6 h-50 a6 6 0 0 1 -6 -6 l4 -56 a4 4 0 0 1 4 -4 z" fill="#F7E3C5" stroke="#477A35" stroke-width="3"/>
+                  <path d="M114 74 v-7 a13 13 0 0 1 26 0 v7" fill="none" stroke="#477A35" stroke-width="3"/>
+                  <path d="M124 92 l5 5 9 -10" stroke="#477A35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <circle cx="100" cy="40" r="18" fill="#E0902E"/>
+                <text x="100" y="46" text-anchor="middle" font-size="18" font-weight="900" fill="#fff" font-family="sans-serif">×2</text>
+              </svg>
+            </div>
+            <h3 class="keep">「同じの買っちゃった」</h3><p class="keep">家族でダブり買い。</p>
+          </div>
+          <div class="pain-card reveal">
+            <div class="illust">
+              <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="買ってと言い忘れる様子">
+                <ellipse cx="100" cy="150" rx="72" ry="8" fill="#E9F2E4"/>
+                <rect x="52" y="66" width="34" height="74" rx="10" fill="#fff" stroke="#477A35" stroke-width="3"/>
+                <rect x="61" y="52" width="16" height="16" rx="3" fill="#477A35"/>
+                <rect x="56" y="116" width="26" height="20" rx="6" fill="#CFE6BC"/>
+                <g>
+                  <rect x="98" y="40" width="74" height="50" rx="15" fill="#fff" stroke="#477A35" stroke-width="3"/>
+                  <path d="M116 89 l-3 17 18 -13 z" fill="#fff" stroke="#477A35" stroke-width="3" stroke-linejoin="round"/>
+                  <circle cx="120" cy="66" r="4.5" fill="#79b443"/>
+                  <circle cx="135" cy="66" r="4.5" fill="#79b443"/>
+                  <circle cx="150" cy="66" r="4.5" fill="#79b443"/>
+                </g>
+                <circle cx="166" cy="36" r="13" fill="#E0902E"/>
+                <rect x="164" y="29" width="4" height="9" rx="2" fill="#fff"/>
+                <circle cx="166" cy="42" r="2.2" fill="#fff"/>
+              </svg>
+            </div>
+            <h3 class="keep">「言い忘れた」</h3><p class="keep">伝え忘れて買い忘れ。</p>
+          </div>
         </div>
       </div>
     </section>
