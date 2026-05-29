@@ -132,7 +132,7 @@
     .section-lead { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 60px; font-size: 16px; }
     .eyebrow {
       display: flex; width: fit-content; margin: 0 auto 16px; align-items: center; gap: 8px;
-      color: var(--green); font-weight: 800; font-size: 12px; letter-spacing: 0.16em;
+      color: var(--green); font-weight: 800; font-size: 12.5px; letter-spacing: 0.04em;
       background: var(--green-light); padding: 7px 16px; border-radius: 999px;
     }
     .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
@@ -172,21 +172,6 @@
     @keyframes shine { 0%, 60% { left: -120%; } 85%, 100% { left: 160%; } }
     @media (prefers-reduced-motion: reduce) { .btn::after { display: none; } }
     @media (max-width: 720px) { .nav-links a.txt { display: none; } }
-
-    /* キーワードが流れるマーキー帯 */
-    .marquee {
-      background: var(--green-dark); color: #fff; overflow: hidden; padding: 16px 0;
-      border-top: 1px solid rgba(255,255,255,.08); border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .marquee-track { display: flex; width: max-content; animation: scroll-x 32s linear infinite; }
-    .marquee:hover .marquee-track { animation-play-state: paused; }
-    .marquee span {
-      display: inline-flex; align-items: center; gap: 12px; padding: 0 22px;
-      font-weight: 800; font-size: 16px; letter-spacing: .02em; white-space: nowrap; opacity: .92;
-    }
-    .marquee span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--lime); }
-    @keyframes scroll-x { to { transform: translateX(-50%); } }
-    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
 
     /* App Store badge */
     .store-link { display: inline-block; transition: transform .15s ease, filter .15s ease; }
@@ -320,12 +305,11 @@
     @media (max-width: 760px) { .pain-grid { grid-template-columns: 1fr; } }
 
     /* 装飾グロー */
-    #features::before, #screens::after {
+    #features::before {
       content: ""; position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; opacity: .55; pointer-events: none;
+      width: 380px; height: 380px; background: radial-gradient(circle, #d7ecef, transparent 70%); top: 80px; left: -160px;
     }
-    #features::before { width: 380px; height: 380px; background: radial-gradient(circle, #d7ecef, transparent 70%); top: 80px; left: -160px; }
-    #screens::after { width: 360px; height: 360px; background: radial-gradient(circle, #cfe7bd, transparent 70%); bottom: 0; right: -150px; }
-    #features .wrap, #screens .wrap { position: relative; z-index: 1; }
+    #features .wrap { position: relative; z-index: 1; }
 
     /* Feature rows (alternating) — 色付きの大きな角丸パネル */
     .frow {
@@ -483,7 +467,7 @@
         <div class="hero-text reveal">
           <span class="pill">🏠 家族・パートナーとリアルタイム共有</span>
           <h1 class="wm">「あれ、<span class="mark"><span class="g">うち</span><span class="k">ある</span><span class="g">？</span></span>」<br>を、もう言わない。</h1>
-          <p class="sub">買うものリストと在庫を、家族・パートナー・ルームメイトと共有。買い忘れと二重買いを減らし、冷蔵庫や棚の「あと何個？」がひと目で分かります。</p>
+          <p class="sub">買うものと在庫を、家族とリアルタイム共有。買い忘れも二重買いも、もうおしまい。</p>
           <div class="hero-cta">
             <a class="store-link" href="https://apps.apple.com/jp/app/id6771027678" aria-label="App Storeでうちある？をダウンロード">
               <img src="assets/app-store-badge.svg" alt="App Storeからダウンロード">
@@ -516,24 +500,15 @@
       </div>
     </section>
 
-    <!-- Keyword marquee -->
-    <div class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>在庫管理</span><span>買い物リスト共有</span><span>賞味期限の管理</span><span>家族と同期</span><span>買い忘れゼロ</span><span>二重買い防止</span><span>冷蔵庫の在庫</span><span>置き場所で整理</span><span>ルームメイトと共有</span><span>バーコード登録</span>
-        <span>在庫管理</span><span>買い物リスト共有</span><span>賞味期限の管理</span><span>家族と同期</span><span>買い忘れゼロ</span><span>二重買い防止</span><span>冷蔵庫の在庫</span><span>置き場所で整理</span><span>ルームメイトと共有</span><span>バーコード登録</span>
-      </div>
-    </div>
-
     <!-- Pain points -->
     <section class="pain">
       <div class="wrap">
-        <span class="eyebrow reveal">SOLVE YOUR DAILY STRESS</span>
-        <h2 class="section-title reveal">こんな「家の中あるある」<br>ありませんか？</h2>
-        <p class="section-lead reveal">毎日の買い物と在庫の小さなストレス。うちある？がまるごと解決します。</p>
+        <span class="eyebrow reveal">こんな経験、ありませんか？</span>
+        <h2 class="section-title reveal">家の「あるある」、<br>まるごと解決。</h2>
         <div class="pain-grid">
-          <div class="pain-card reveal"><div class="emoji">🤔</div><h3>「これ、まだあったっけ？」</h3><p>家に何がどれだけあるか分からず、つい買いすぎてしまう。</p></div>
-          <div class="pain-card reveal"><div class="emoji">🛍️</div><h3>「同じの買っちゃった…」</h3><p>家族それぞれが買ってきて、ティッシュも牛乳もダブり買い。</p></div>
-          <div class="pain-card reveal"><div class="emoji">📢</div><h3>「買ってって言い忘れた」</h3><p>「あれ切れてるよ」を伝えるのが面倒で、結局また買い忘れる。</p></div>
+          <div class="pain-card reveal"><div class="emoji">🤔</div><h3>「まだあったっけ？」</h3><p>分からず、つい買いすぎ。</p></div>
+          <div class="pain-card reveal"><div class="emoji">🛍️</div><h3>「同じの買っちゃった」</h3><p>家族でダブり買い。</p></div>
+          <div class="pain-card reveal"><div class="emoji">📢</div><h3>「言い忘れた」</h3><p>伝え忘れて買い忘れ。</p></div>
         </div>
       </div>
     </section>
@@ -541,19 +516,17 @@
     <!-- Features -->
     <section id="features">
       <div class="wrap">
-        <span class="eyebrow reveal">FEATURES</span>
+        <span class="eyebrow reveal">主な機能</span>
         <h2 class="section-title reveal">うちある？で<span class="gradtext">できること</span></h2>
-        <p class="section-lead reveal">「買うもの」と「在庫」を分けて管理しつつ、日常の買い物導線が途切れない設計です。</p>
 
         <div class="frow reveal">
           <div class="ftext">
             <span class="ftag">🛒 買うもの</span>
-            <h3>買い物リストを家族で共有。<br>買い忘れゼロへ。</h3>
+            <h3>買い物リストを、<br>家族で共有。</h3>
             <ul>
-              <li>「すべて / 未購入 / 購入済み」でフィルタ</li>
-              <li>カテゴリ・お店ごとに見やすく整理</li>
               <li>ワンタップで購入済みにチェック</li>
-              <li>購入後はそのまま在庫へ反映（任意）</li>
+              <li>カテゴリ・お店ごとに整理</li>
+              <li>買ったら在庫へ自動反映</li>
             </ul>
           </div>
           <div class="fvisual">
@@ -568,12 +541,11 @@
         <div class="frow rev reveal">
           <div class="ftext">
             <span class="ftag blue">📦 在庫</span>
-            <h3>冷蔵庫も棚も、<br>「あと何個？」がひと目で。</h3>
+            <h3>「あと何個？」が<br>ひと目で。</h3>
             <ul>
-              <li>冷蔵庫・棚など置き場所でまとまる一覧</li>
-              <li>数量は＋／−でその場でサクッと調整</li>
-              <li>賞味期限を登録して管理</li>
-              <li>「少なめ」など在庫ステータスで気づける</li>
+              <li>冷蔵庫・棚など置き場所で一覧</li>
+              <li>数量は＋／−でサクッと調整</li>
+              <li>賞味期限もまとめて管理</li>
             </ul>
           </div>
           <div class="fvisual">
@@ -588,12 +560,11 @@
         <div class="frow reveal">
           <div class="ftext">
             <span class="ftag amber">👥 グループ共有</span>
-            <h3>招待リンクひとつで、<br>みんなとリアルタイム同期。</h3>
+            <h3>招待リンクひとつで、<br>すぐ共有。</h3>
             <ul>
-              <li>グループを作って招待リンク／コードで参加</li>
+              <li>リンク／コードを送るだけで参加</li>
               <li>変更はメンバー間でリアルタイム同期</li>
-              <li>家族・パートナー・ルームメイトで共有</li>
-              <li>カテゴリ・置き場所・単位も自由に編集</li>
+              <li>家族・パートナー・ルームメイトと</li>
             </ul>
           </div>
           <div class="fvisual">
@@ -625,36 +596,12 @@
     <!-- How it works -->
     <section id="how" class="how">
       <div class="wrap">
-        <span class="eyebrow reveal">HOW IT WORKS</span>
-        <h2 class="section-title reveal">使い方はかんたん<span class="gradtext">3ステップ</span></h2>
-        <p class="section-lead reveal">アプリを入れたその日から、家族みんなで在庫を共有できます。</p>
+        <span class="eyebrow reveal">使い方</span>
+        <h2 class="section-title reveal">かんたん<span class="gradtext">3ステップ</span></h2>
         <div class="steps">
-          <div class="step reveal"><div class="num">1</div><h3>グループを作る</h3><p>世帯やパートナー単位でグループを作成。最初の在庫をいくつか登録してみましょう。</p></div>
-          <div class="step reveal"><div class="num">2</div><h3>招待リンクで共有</h3><p>招待リンクやコードを送るだけで家族が参加。データはリアルタイムに同期されます。</p></div>
-          <div class="step reveal"><div class="num">3</div><h3>買う・補充するだけ</h3><p>必要なものは「買うもの」へ、買ったら「購入済み」に。在庫が自動で最新の状態に。</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Screenshots -->
-    <section id="screens">
-      <div class="wrap">
-        <span class="eyebrow reveal">SCREENSHOTS</span>
-        <h2 class="section-title reveal">画面イメージ</h2>
-        <p class="section-lead reveal">iOS風のミニマルデザインで、入力から追加までスムーズ。</p>
-        <div class="shots">
-          <figure class="reveal">
-            <div class="phone"><div class="screen"></div><img class="shot" src="assets/screenshots/02.png" alt="買うもの画面" onerror="this.parentElement.querySelector('.placeholder').style.removeProperty('display'); this.remove();"><div class="placeholder" style="display:none"><img src="assets/icon.png" alt=""><span>準備中</span></div></div>
-            <figcaption>買うものを家族と共有。<br>買い忘れゼロへ</figcaption>
-          </figure>
-          <figure class="reveal">
-            <div class="phone"><div class="screen"></div><img class="shot" src="assets/screenshots/01.png" alt="在庫画面" onerror="this.parentElement.querySelector('.placeholder').style.removeProperty('display'); this.remove();"><div class="placeholder" style="display:none"><img src="assets/icon.png" alt=""><span>準備中</span></div></div>
-            <figcaption>在庫は置き場所で<br>一目で分かる</figcaption>
-          </figure>
-          <figure class="reveal">
-            <div class="phone"><div class="screen"></div><img class="shot" src="assets/screenshots/04.png" alt="アプリ画面" onerror="this.parentElement.querySelector('.placeholder').style.removeProperty('display'); this.remove();"><div class="placeholder" style="display:none"><img src="assets/icon.png" alt=""><span>準備中</span></div></div>
-            <figcaption>カテゴリ・お店で<br>スッキリ整理</figcaption>
-          </figure>
+          <div class="step reveal"><div class="num">1</div><h3>グループを作る</h3><p>世帯やパートナー単位で作成。</p></div>
+          <div class="step reveal"><div class="num">2</div><h3>招待リンクで共有</h3><p>送るだけで家族が参加。</p></div>
+          <div class="step reveal"><div class="num">3</div><h3>買う・補充するだけ</h3><p>在庫が自動で最新に。</p></div>
         </div>
       </div>
     </section>
@@ -664,8 +611,8 @@
       <div class="wrap">
         <div class="pro-card reveal">
           <span class="pill-light">💎 うちある？ Pro（任意）</span>
-          <h2>もっと快適に使いたい人へ</h2>
-          <p style="position:relative;opacity:.94;max-width:560px;margin:0 auto;">基本機能はすべて無料。さらに便利に使いたいときはProプランをご利用いただけます。</p>
+          <h2>基本機能はぜんぶ無料。</h2>
+          <p style="position:relative;opacity:.94;max-width:560px;margin:0 auto;">さらに便利にしたい人だけ、Proへ。</p>
           <div class="pro-feats">
             <span>広告非表示</span>
             <span>自動バックアップ</span>
@@ -679,8 +626,8 @@
     <!-- FAQ -->
     <section id="faq">
       <div class="wrap">
-        <span class="eyebrow reveal">FAQ</span>
-        <h2 class="section-title reveal">よくある質問</h2>
+        <span class="eyebrow reveal">よくある質問</span>
+        <h2 class="section-title reveal">気になること</h2>
         <div class="faq-list">
           <details class="reveal"><summary>うちある？は無料で使えますか？</summary><p>はい、基本機能はすべて無料でご利用いただけます。広告非表示・自動バックアップ・詳細な期限通知などは任意のProプランでご利用いただけます。</p></details>
           <details class="reveal"><summary>家族やパートナーとどうやって共有しますか？</summary><p>グループを作成し、招待リンクまたは招待コードを相手に送るだけで参加できます。在庫や買うものの変更はメンバー間でリアルタイムに同期されます。</p></details>
