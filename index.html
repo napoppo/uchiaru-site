@@ -82,9 +82,9 @@
       --grad: linear-gradient(120deg, #5a9442, #477A35 55%, #2f5523);
     }
     * { box-sizing: border-box; }
-    /* スクロール時に各セクション先頭でゆるく吸着して一旦止まる */
-    html { scroll-behavior: smooth; scroll-snap-type: y proximity; scroll-padding-top: 70px; }
-    main > section { scroll-snap-align: start; }
+    /* スクロール時に各セクション先頭で必ず止まる */
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; scroll-padding-top: 70px; }
+    main > section { scroll-snap-align: start; scroll-snap-stop: always; }
     @media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
     body {
       margin: 0; font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
