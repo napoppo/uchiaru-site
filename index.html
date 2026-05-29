@@ -288,17 +288,19 @@
     .step p { margin: 0; color: var(--muted); font-size: 14px; }
     @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
 
-    /* ============ PRO ============ */
+    /* ============ PRO（明るい基調・フラットイラストで統一） ============ */
     .pro { padding: 110px 0; }
-    .pro-card { position: relative; overflow: hidden; background: var(--grad); color: #fff; border-radius: 30px; padding: 60px 44px; text-align: center; box-shadow: var(--shadow); }
-    .pro-card::before { content: ""; position: absolute; width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.1); top: -130px; right: -90px; }
-    .pro-card::after { content: ""; position: absolute; width: 260px; height: 260px; border-radius: 50%; background: rgba(155,214,104,.18); bottom: -130px; left: -70px; }
-    .pro-card .pill-light { position: relative; display: inline-block; background: rgba(255,255,255,.2); color: #fff; font-weight: 700; font-size: 13px; padding: 7px 16px; border-radius: 999px; margin-bottom: 20px; }
-    .pro-card h2 { position: relative; font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin: 0 0 12px; }
-    .pro-card p { position: relative; opacity: .94; margin: 0 auto; }
-    .pro-feats { position: relative; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 28px 0 0; }
-    .pro-feats span { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 999px; padding: 9px 18px; font-size: 14px; font-weight: 700; }
-    .pro-feats span::before { content: "✓ "; opacity: .9; }
+    .pro-card { position: relative; overflow: hidden; background: linear-gradient(160deg, #fff, var(--green-tint)); border: 1px solid rgba(71,122,53,.14); border-radius: 30px; padding: 56px 44px; text-align: center; box-shadow: var(--shadow-sm); }
+    .pro-card::before { content: ""; position: absolute; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(224,144,46,.12), transparent 70%); top: -120px; right: -80px; }
+    .pro-badge { position: relative; display: inline-flex; align-items: center; gap: 8px; background: #FBEAD0; color: #9c5f12; font-weight: 800; font-size: 13px; padding: 7px 16px; border-radius: 999px; margin-bottom: 18px; }
+    .pro-badge svg { width: 18px; height: 18px; }
+    .pro-card h2 { position: relative; color: var(--text); font-size: clamp(26px, 4vw, 38px); font-weight: 900; margin: 0 0 12px; }
+    .pro-card p { position: relative; color: var(--muted); margin: 0 auto 40px; }
+    .pro-grid { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 740px; margin: 0 auto; }
+    .pro-item { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .pro-item .tile { background: #FBEAD0; }
+    .pro-item span { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.4; }
+    @media (max-width: 640px) { .pro-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 16px; } }
 
     /* ============ FAQ ============ */
     .faq { padding: 0 0 110px; }
@@ -637,11 +639,55 @@
     <section class="pro">
       <div class="wrap">
         <div class="pro-card reveal">
-          <span class="pill-light">💎 うちある？ Pro（任意）</span>
+          <span class="pro-badge">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M4 9 L8 4 H16 L20 9 L12 20 Z" fill="#F7E3C5" stroke="#E0902E" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M4 9 H20 M9 4 L11 9 L12 20 M15 4 L13 9" stroke="#E0902E" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+            うちある？ Pro（任意）
+          </span>
           <h2 class="keep">基本機能はぜんぶ無料。</h2>
           <p class="keep">さらに便利にしたい人だけ、Proへ。</p>
-          <div class="pro-feats">
-            <span>広告非表示</span><span>自動バックアップ</span><span>詳細な期限通知</span><span>家族にも特典を共有</span>
+          <div class="pro-grid">
+            <div class="pro-item">
+              <div class="tile">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4 16 c4-7 20-7 24 0 c-4 7-20 7-24 0 z" fill="#F7E3C5" stroke="#477A35" stroke-width="2.2" stroke-linejoin="round"/>
+                  <circle cx="16" cy="16" r="3.4" fill="#fff" stroke="#477A35" stroke-width="2.2"/>
+                  <line x1="7" y1="25" x2="25" y2="7" stroke="#E0902E" stroke-width="2.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="keep">広告非表示</span>
+            </div>
+            <div class="pro-item">
+              <div class="tile">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M9.5 22 h13 a5 5 0 0 0 0.5 -10 a6.5 6.5 0 0 0 -12.6 1.6 a4.6 4.6 0 0 0 -0.9 8.4 z" fill="#CFE6BC" stroke="#477A35" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M16 12.5 v6 M13 15.8 l3 3 3-3" stroke="#E0902E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="keep">自動バックアップ</span>
+            </div>
+            <div class="pro-item">
+              <div class="tile">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M9 14 a7 7 0 0 1 14 0 v4 l2 3 H7 l2-3 z" fill="#CFE6BC" stroke="#477A35" stroke-width="2.2" stroke-linejoin="round"/>
+                  <path d="M13.5 24 a2.5 2.5 0 0 0 5 0" stroke="#477A35" stroke-width="2.2" stroke-linecap="round"/>
+                  <circle cx="23.5" cy="9" r="4" fill="#E0902E"/>
+                </svg>
+              </div>
+              <span class="keep">詳細な期限通知</span>
+            </div>
+            <div class="pro-item">
+              <div class="tile">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M4.5 26 a7.5 7.5 0 0 1 15 0" fill="#CFE6BC" stroke="#477A35" stroke-width="2.2" stroke-linejoin="round"/>
+                  <circle cx="12" cy="13" r="4.8" fill="#CFE6BC" stroke="#477A35" stroke-width="2.2"/>
+                  <path d="M23.5 5 l1.3 3.4 3.6 0.3 -2.8 2.3 0.9 3.5 -3-1.9 -3 1.9 0.9-3.5 -2.8-2.3 3.6-0.3 z" fill="#E0902E"/>
+                </svg>
+              </div>
+              <span class="keep">家族にも特典を共有</span>
+            </div>
           </div>
         </div>
       </div>
