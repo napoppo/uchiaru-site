@@ -120,6 +120,12 @@
     }
     a { color: var(--green); text-decoration: none; }
     img { max-width: 100%; display: block; }
+    /* 日本語が単語の途中で改行されないように句読点で折り返す（はみ出す時だけ任意位置で改行） */
+    .hero p.sub, .section-title, .section-lead, .ftext h3, .ftext ul li,
+    .pain-card h3, .pain-card p, .step h3, .step p, .pro-card h2, .pro-card p,
+    .share-card .sc-head, .share-card .sc-sub, details summary, details p {
+      word-break: keep-all; overflow-wrap: anywhere;
+    }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
     section { padding: 96px 0; position: relative; }
     h2.section-title {
