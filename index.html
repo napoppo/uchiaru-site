@@ -232,9 +232,30 @@
       .hero-cta, .hero-trust { justify-content: center; }
       .hero-visual { margin-top: 24px; }
     }
-    @media (max-width: 480px) {
-      .cluster { transform: scale(.82); }
-      .chip-2 { left: -10px; }
+    @media (max-width: 600px) {
+      /* レイアウトの余白を圧縮してスマホで間延びしないように */
+      section { padding: 60px 0; }
+      .wrap { padding: 0 20px; }
+      .hero { padding: 36px 0 52px; }
+      .hero-visual { min-height: auto; }
+      .section-lead { margin-bottom: 40px; }
+
+      /* スマホ束を縮めて画面内に収める */
+      .cluster { width: 280px; height: 430px; }
+      .cluster .phone { width: 198px; }
+      .phone-back { top: 28px; transform: rotate(-7deg) scale(.92); }
+      .chip { font-size: 11px; padding: 9px 12px; }
+      .chip .ic { width: 26px; height: 26px; font-size: 14px; }
+      .chip small { font-size: 10px; }
+      .chip-1 { top: 4px; left: -6px; }
+      .chip-2 { bottom: 84px; left: -6px; }
+      .chip-3 { bottom: 16px; right: -6px; }
+
+      .share-card { width: 100%; max-width: 320px; }
+      .pro-card { padding: 40px 22px; border-radius: 22px; }
+      .pro-feats span { padding: 8px 14px; font-size: 13px; }
+      details { padding: 2px 18px; }
+      details summary { font-size: 15px; }
     }
 
     /* Pain points */
