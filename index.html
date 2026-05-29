@@ -231,8 +231,8 @@
     /* ============ PAIN ============ */
     .pain { padding: 100px 0; }
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 8px; }
-    .pain-card { background: var(--surface); border: 1px solid var(--divider); border-radius: 22px; padding: 34px 28px; text-align: center; transition: transform .25s ease, box-shadow .25s ease; }
-    .pain-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-sm); }
+    .pain-card { background: var(--surface); border: 1px solid var(--divider); border-radius: 22px; padding: 34px 28px; text-align: center; box-shadow: var(--shadow-sm); transition: transform .25s ease, box-shadow .25s ease; }
+    .pain-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
     .pain-card .illust { height: 150px; margin: 0 auto 14px; display: grid; place-items: end center; }
     .pain-card .illust svg { height: 150px; width: auto; }
     .pain-card h3 { font-size: 18px; margin: 0 0 8px; font-weight: 800; }
@@ -250,7 +250,7 @@
     .feat-card {
       background: var(--surface); border: 1px solid var(--divider); border-radius: 26px; padding: 36px 36px 0;
       display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden;
-      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
+      box-shadow: var(--shadow-sm); transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
     }
     .feat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
     .feat-card .tile { margin-bottom: 16px; }
@@ -262,9 +262,9 @@
     .feat-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     .mini-card {
       background: var(--surface); border: 1px solid var(--divider); border-radius: 20px; padding: 24px;
-      display: flex; flex-direction: column; gap: 12px; transition: transform .25s ease, box-shadow .25s ease;
+      display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-sm); transition: transform .25s ease, box-shadow .25s ease;
     }
-    .mini-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .mini-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
     .mini-card .tile { width: 48px; height: 48px; }
     .mini-card .tile svg { width: 28px; height: 28px; }
     .mini-card h4 { margin: 0; font-size: 16px; font-weight: 800; }
@@ -279,7 +279,7 @@
     /* ============ HOW（他セクションと同じ明るい背景に統一） ============ */
     .how { padding: 110px 0; background: var(--bg); position: relative; }
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; z-index: 1; }
-    .step { background: #fff; border: 1px solid rgba(71,122,53,.10); border-radius: 22px; padding: 32px 30px; box-shadow: var(--shadow-sm); }
+    .step { background: var(--surface); border: 1px solid var(--divider); border-radius: 22px; padding: 32px 30px; box-shadow: var(--shadow-sm); }
     .step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
     .step-top .tile { width: 54px; height: 54px; }
     .step .num { font-size: 38px; font-weight: 900; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -289,7 +289,7 @@
 
     /* ============ PRO（明るい基調・フラットイラストで統一） ============ */
     .pro { padding: 110px 0; }
-    .pro-card { position: relative; overflow: hidden; background: linear-gradient(160deg, #fff, var(--green-tint)); border: 1px solid rgba(71,122,53,.14); border-radius: 30px; padding: 56px 44px; text-align: center; box-shadow: var(--shadow-sm); }
+    .pro-card { position: relative; overflow: hidden; background: linear-gradient(160deg, #fff, var(--green-tint)); border: 1px solid var(--divider); border-radius: 30px; padding: 56px 44px; text-align: center; box-shadow: var(--shadow-sm); }
     .pro-card::before { content: ""; position: absolute; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(224,144,46,.12), transparent 70%); top: -120px; right: -80px; }
     .pro-badge { position: relative; display: inline-flex; align-items: center; gap: 8px; background: #FBEAD0; color: #9c5f12; font-weight: 800; font-size: 13px; padding: 7px 16px; border-radius: 999px; margin-bottom: 18px; }
     .pro-badge svg { width: 18px; height: 18px; }
@@ -304,8 +304,8 @@
     /* ============ FAQ ============ */
     .faq { padding: 0 0 110px; }
     .faq-list { max-width: 800px; margin: 0 auto; }
-    details { background: var(--surface); border: 1px solid var(--divider); border-radius: 16px; padding: 4px 24px; margin-bottom: 14px; transition: box-shadow .2s; }
-    details[open] { box-shadow: var(--shadow-sm); }
+    details { background: var(--surface); border: 1px solid var(--divider); border-radius: 16px; padding: 4px 24px; margin-bottom: 14px; box-shadow: var(--shadow-sm); transition: box-shadow .2s; }
+    details[open] { box-shadow: var(--shadow); }
     details summary { list-style: none; cursor: pointer; font-weight: 800; font-size: 16px; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
     details summary::-webkit-details-marker { display: none; }
     details summary::after { content: "+"; color: var(--green); font-size: 26px; font-weight: 300; transition: transform .25s; }
