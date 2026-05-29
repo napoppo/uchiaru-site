@@ -237,50 +237,40 @@
     .pain-card p { margin: 0; color: var(--muted); font-size: 14px; }
     @media (max-width: 760px) { .pain-grid { grid-template-columns: 1fr; } }
 
-    /* ============ BENTO FEATURES ============ */
-    .features { padding: 60px 0 110px; }
-    .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
-    .cell {
-      position: relative; overflow: hidden; border-radius: 26px; padding: 32px;
-      border: 1px solid var(--divider); background: var(--surface);
+    /* ============ FEATURES ============ */
+    .features { padding: 70px 0 110px; }
+    /* アプリ風の角丸アイコンタイル */
+    .tile { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; font-size: 25px; background: var(--green-light); flex: none; }
+
+    /* 主役の2画面（買うもの / 在庫） */
+    .feat-show { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 22px; }
+    .feat-card {
+      background: var(--surface); border: 1px solid var(--divider); border-radius: 26px; padding: 36px 36px 0;
+      display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden;
       transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;
     }
-    .cell:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .cell .ftag { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 13px; padding: 6px 14px; border-radius: 999px; margin-bottom: 14px; background: var(--green-light); color: var(--green-dark); }
-    .cell h3 { font-size: clamp(20px, 2.4vw, 26px); font-weight: 900; margin: 0 0 10px; line-height: 1.4; }
-    .cell p { margin: 0; color: var(--muted); font-size: 14.5px; }
-    .cell .mini-list { margin: 12px 0 0; padding: 0; list-style: none; }
-    .cell .mini-list li { position: relative; padding-left: 26px; margin-bottom: 7px; font-size: 14px; }
-    .cell .mini-list li::before { content: "✓"; position: absolute; left: 0; top: 1px; width: 18px; height: 18px; border-radius: 50%; background: var(--green); color: #fff; font-size: 11px; display: grid; place-items: center; font-weight: 800; }
+    .feat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .feat-card .tile { margin-bottom: 16px; }
+    .feat-card h3 { font-size: 22px; font-weight: 900; margin: 0 0 8px; }
+    .feat-card p { margin: 0 0 28px; color: var(--muted); font-size: 14.5px; max-width: 320px; }
+    .feat-card .phone { width: 210px; border-width: 10px; border-radius: 38px; box-shadow: 0 -10px 40px rgba(29,59,46,.12); margin-bottom: -40px; }
 
-    /* 大セル（スクショ入り・横並び） */
-    .cell-lg { grid-column: span 4; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
-    .cell-lg.green { background: linear-gradient(135deg, #eef6e8, #e2efd9); border-color: rgba(71,122,53,.14); }
-    .cell-lg.tint { background: linear-gradient(135deg, var(--green-tint), #e9f1e2); border-color: rgba(71,122,53,.12); }
-    .cell-lg .ph-wrap { position: relative; }
-    .cell-lg .phone { width: 188px; border-width: 9px; border-radius: 36px; box-shadow: var(--shadow); }
-    .cell-sm { grid-column: span 2; }
-    .cell-sm .ico { width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; font-size: 26px; margin-bottom: 14px; background: var(--green-light); }
-
-    /* 招待セル（ブランド緑で塗り・唯一の濃色アクセント） */
-    .cell-invite { grid-column: span 2; color: #fff; border: none; background: var(--grad); }
-    .cell-invite .ftag { background: rgba(255,255,255,.16); color: #fff; }
-    .cell-invite h3 { color: #fff; }
-    .cell-invite .code-box { display: flex; gap: 6px; margin-top: 16px; }
-    .cell-invite .code-box b { flex: 1; height: 44px; border-radius: 10px; background: rgba(255,255,255,.16); display: grid; place-items: center; font-size: 20px; font-weight: 900; }
-    .cell-invite .ilink { margin-top: 12px; font-size: 11.5px; color: rgba(255,255,255,.7); word-break: break-all; }
-
-    @media (max-width: 900px) {
-      .bento { grid-template-columns: repeat(2, 1fr); }
-      .cell-lg { grid-column: span 2; }
-      .cell-sm, .cell-invite { grid-column: span 1; }
+    /* サブ機能（アプリのリスト行風：アイコン左） */
+    .feat-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .mini-card {
+      background: var(--surface); border: 1px solid var(--divider); border-radius: 20px; padding: 24px;
+      display: flex; flex-direction: column; gap: 12px; transition: transform .25s ease, box-shadow .25s ease;
     }
-    @media (max-width: 560px) {
-      .bento { grid-template-columns: 1fr; }
-      .cell-lg, .cell-sm, .cell-invite { grid-column: span 1; }
-      .cell-lg { grid-template-columns: 1fr; text-align: center; }
-      .cell-lg .ph-wrap { justify-self: center; }
+    .mini-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .mini-card .tile { width: 46px; height: 46px; font-size: 22px; }
+    .mini-card h4 { margin: 0; font-size: 16px; font-weight: 800; }
+    .mini-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    @media (max-width: 760px) {
+      .feat-show { grid-template-columns: 1fr; }
+      .feat-mini { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 440px) { .feat-mini { grid-template-columns: 1fr; } }
 
     /* ============ HOW (light green band) ============ */
     .how { padding: 110px 0; background: var(--green-light); position: relative; overflow: hidden; }
@@ -407,81 +397,59 @@
       </div>
     </section>
 
-    <!-- FEATURES (bento) -->
+    <!-- FEATURES -->
     <section id="features" class="features">
       <div class="wrap">
         <div class="section-head reveal">
           <span class="eyebrow">主な機能</span>
           <h2 class="keep">うちある？で<span class="gradtext">できること</span></h2>
         </div>
-        <div class="bento">
-          <!-- 買うもの -->
-          <div class="cell cell-lg green reveal">
-            <div>
-              <span class="ftag">🛒 買うもの</span>
-              <h3 class="keep">買い物リストを、<br>家族で共有。</h3>
-              <ul class="mini-list keep">
-                <li>ワンタップで購入済みにチェック</li>
-                <li>カテゴリ・お店ごとに整理</li>
-                <li>買ったら在庫へ自動反映</li>
-              </ul>
-            </div>
-            <div class="ph-wrap">
-              <div class="phone">
-                <div class="screen"></div>
-                <img class="shot" src="assets/screenshots/02.png" alt="買うもの画面" onerror="this.parentElement.querySelector('.placeholder').style.display='flex'; this.remove();">
-                <div class="placeholder"><img src="assets/icon.png" alt=""><span>準備中</span></div>
-              </div>
+
+        <!-- 主役の2画面 -->
+        <div class="feat-show">
+          <div class="feat-card reveal">
+            <div class="tile">🛒</div>
+            <h3 class="keep">買うもの</h3>
+            <p class="keep">買い物リストを家族で共有。ワンタップで購入済みに。</p>
+            <div class="phone">
+              <div class="screen"></div>
+              <img class="shot" src="assets/screenshots/02.png" alt="買うもの画面" onerror="this.parentElement.querySelector('.placeholder').style.display='flex'; this.remove();">
+              <div class="placeholder"><img src="assets/icon.png" alt=""><span>準備中</span></div>
             </div>
           </div>
-
-          <!-- 賞味期限 -->
-          <div class="cell cell-sm reveal">
-            <div class="ico">⏰</div>
-            <h3 class="keep">賞味期限</h3>
-            <p class="keep">登録しておけば、うっかり期限切れを防げます。</p>
-          </div>
-
-          <!-- 在庫 -->
-          <div class="cell cell-lg tint reveal">
-            <div>
-              <span class="ftag">📦 在庫</span>
-              <h3 class="keep">「あと何個？」が<br>ひと目で。</h3>
-              <ul class="mini-list keep">
-                <li>冷蔵庫・棚など置き場所で一覧</li>
-                <li>数量は＋／−でサクッと調整</li>
-                <li>在庫ステータスで気づける</li>
-              </ul>
-            </div>
-            <div class="ph-wrap">
-              <div class="phone">
-                <div class="screen"></div>
-                <img class="shot" src="assets/screenshots/01.png" alt="在庫画面" onerror="this.parentElement.querySelector('.placeholder').style.display='flex'; this.remove();">
-                <div class="placeholder"><img src="assets/icon.png" alt=""><span>準備中</span></div>
-              </div>
+          <div class="feat-card reveal">
+            <div class="tile">📦</div>
+            <h3 class="keep">在庫</h3>
+            <p class="keep">置き場所ごとに一覧。「あと何個？」がひと目で分かる。</p>
+            <div class="phone">
+              <div class="screen"></div>
+              <img class="shot" src="assets/screenshots/01.png" alt="在庫画面" onerror="this.parentElement.querySelector('.placeholder').style.display='flex'; this.remove();">
+              <div class="placeholder"><img src="assets/icon.png" alt=""><span>準備中</span></div>
             </div>
           </div>
+        </div>
 
-          <!-- グループ共有（招待） -->
-          <div class="cell cell-invite reveal">
-            <span class="ftag">👥 グループ共有</span>
-            <h3 class="keep">招待リンクで、<br>すぐ共有。</h3>
-            <div class="code-box"><b>K</b><b>7</b><b>M</b><b>2</b><b>P</b><b>X</b></div>
-            <div class="ilink">uchiaru.com/invite?code=K7M2PX</div>
+        <!-- サブ機能 -->
+        <div class="feat-mini">
+          <div class="mini-card reveal">
+            <div class="tile">👥</div>
+            <h4 class="keep">グループ共有</h4>
+            <p class="keep">招待リンクを送るだけで、すぐ共有。</p>
           </div>
-
-          <!-- バーコード -->
-          <div class="cell cell-sm reveal">
-            <div class="ico">📷</div>
-            <h3 class="keep">バーコード登録</h3>
-            <p class="keep">スキャンで商品名を自動入力。追加がはやい。</p>
+          <div class="mini-card reveal">
+            <div class="tile">⏰</div>
+            <h4 class="keep">賞味期限</h4>
+            <p class="keep">登録して、うっかり期限切れを防ぐ。</p>
           </div>
-
-          <!-- カスタマイズ -->
-          <div class="cell cell-sm reveal">
-            <div class="ico">⚙️</div>
-            <h3 class="keep">自由にカスタマイズ</h3>
-            <p class="keep">カテゴリ・置き場所・単位を暮らしに合わせて編集。</p>
+          <div class="mini-card reveal">
+            <div class="tile">📷</div>
+            <h4 class="keep">バーコード登録</h4>
+            <p class="keep">スキャンで商品名を自動入力。</p>
+          </div>
+          <div class="mini-card reveal">
+            <div class="tile">⚙️</div>
+            <h4 class="keep">カスタマイズ</h4>
+            <p class="keep">カテゴリ・置き場所・単位を編集。</p>
           </div>
         </div>
       </div>
