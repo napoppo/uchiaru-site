@@ -131,9 +131,11 @@
     .wm .g, .wm .k { color: var(--green); }
     .section-lead { text-align: center; color: var(--muted); max-width: 620px; margin: 0 auto 60px; font-size: 16px; }
     .eyebrow {
-      display: block; text-align: center; color: var(--green); font-weight: 800;
-      font-size: 13px; letter-spacing: 0.14em; margin-bottom: 14px;
+      display: flex; width: fit-content; margin: 0 auto 16px; align-items: center; gap: 8px;
+      color: var(--green); font-weight: 800; font-size: 12px; letter-spacing: 0.16em;
+      background: var(--green-light); padding: 7px 16px; border-radius: 999px;
     }
+    .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
 
     /* Reveal animation */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
@@ -193,7 +195,12 @@
     .phone {
       position: relative; width: 252px; aspect-ratio: 9 / 19.5;
       background: #fff; border-radius: 42px; border: 11px solid #14201a;
-      box-shadow: var(--shadow); overflow: hidden;
+      box-shadow: var(--shadow), inset 0 0 0 1.5px #2c3a32; overflow: hidden;
+    }
+    /* 斜めの光沢ハイライト */
+    .phone::after {
+      content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none;
+      background: linear-gradient(135deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,0) 32%);
     }
     .phone .screen { position: absolute; inset: 0; background: var(--bg); z-index: 0; }
     .phone img.shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
@@ -246,6 +253,14 @@
     .pain-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
     @media (max-width: 760px) { .pain-grid { grid-template-columns: 1fr; } }
 
+    /* 装飾グロー */
+    #features::before, #screens::after {
+      content: ""; position: absolute; border-radius: 50%; filter: blur(80px); z-index: 0; opacity: .55; pointer-events: none;
+    }
+    #features::before { width: 380px; height: 380px; background: radial-gradient(circle, #d7ecef, transparent 70%); top: 80px; left: -160px; }
+    #screens::after { width: 360px; height: 360px; background: radial-gradient(circle, #cfe7bd, transparent 70%); bottom: 0; right: -150px; }
+    #features .wrap, #screens .wrap { position: relative; z-index: 1; }
+
     /* Feature rows (alternating) */
     .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 110px; }
     .frow:last-child { margin-bottom: 0; }
@@ -267,21 +282,40 @@
       content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%;
       background: radial-gradient(circle, var(--green-light), transparent 70%); z-index: 0;
     }
-    .fvisual .phone { width: 248px; z-index: 1; }
+    .fvisual .phone { width: 248px; z-index: 1; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+    .shots .phone { transition: transform .3s cubic-bezier(.16,1,.3,1); }
+    .fvisual .phone:hover, .shots .phone:hover { transform: translateY(-8px) rotate(-1deg); }
     .frow.rev .fvisual::before { background: radial-gradient(circle, var(--blue-bg), transparent 70%); }
     .frow:nth-of-type(3) .fvisual::before { background: radial-gradient(circle, var(--amber-bg), transparent 70%); }
-    /* Share card visual */
+    /* Share card visual — アプリの「メンバーを招待」画面イメージ */
     .share-card {
-      position: relative; z-index: 1; background: #fff; border: 1px solid var(--divider); border-radius: 24px;
-      padding: 28px; width: 320px; box-shadow: var(--shadow); text-align: center;
+      position: relative; z-index: 1; background: #fff; border: 1px solid var(--divider); border-radius: 26px;
+      padding: 26px 24px 24px; width: 330px; box-shadow: var(--shadow); text-align: center;
     }
-    .share-card .ava { display: flex; justify-content: center; gap: -8px; margin-bottom: 16px; }
+    .share-card .sc-head { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+    .share-card .sc-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 18px; }
+    .share-card .ava { display: flex; justify-content: center; margin-bottom: 18px; }
     .share-card .ava span {
-      width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; font-size: 22px;
+      width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 21px;
       border: 3px solid #fff; margin-left: -10px; box-shadow: var(--shadow-sm);
     }
-    .share-card .invite { background: var(--bg); border: 1px dashed var(--green); border-radius: 12px; padding: 12px; font-weight: 800; color: var(--green-dark); letter-spacing: .15em; margin: 14px 0; }
-    .share-card .mini { background: var(--grad); color: #fff; border-radius: 999px; padding: 11px; font-weight: 700; font-size: 14px; }
+    .share-card .ava span:first-child { margin-left: 0; }
+    .share-card .ava .more { background: var(--green-light); color: var(--green-dark); font-size: 13px; font-weight: 800; }
+    .share-card .code-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .08em; text-align: left; margin-bottom: 8px; }
+    .share-card .code-box {
+      display: flex; justify-content: center; gap: 7px; margin-bottom: 18px;
+    }
+    .share-card .code-box b {
+      width: 38px; height: 48px; border-radius: 11px; background: var(--green-light); color: var(--green-dark);
+      display: grid; place-items: center; font-size: 23px; font-weight: 900; box-shadow: inset 0 0 0 1px rgba(71,122,53,.14);
+    }
+    .share-card .sc-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--grad); color: #fff; border-radius: 14px; padding: 13px; font-weight: 700; font-size: 14.5px;
+      box-shadow: 0 8px 18px rgba(71,122,53,.28);
+    }
+    .share-card .sc-btn.ghost { background: var(--bg); color: var(--green-dark); box-shadow: inset 0 0 0 1px var(--divider); margin-top: 9px; }
+    .share-card .sc-link { font-size: 11.5px; color: var(--muted); margin-top: 14px; word-break: break-all; }
     @media (max-width: 820px) {
       .frow { grid-template-columns: 1fr; gap: 32px; text-align: center; margin-bottom: 72px; }
       .frow.rev .ftext { order: 0; }
@@ -480,16 +514,24 @@
           </div>
           <div class="fvisual">
             <div class="share-card">
+              <div class="sc-head">メンバーを招待</div>
+              <div class="sc-sub">グループ「うちの家族」・3人が参加中</div>
               <div class="ava">
-                <span style="background:#FDE9C8">👩</span>
-                <span style="background:#D7ECEF">👨</span>
+                <span style="background:#FBEAD0">👩</span>
+                <span style="background:#DDEBF7">👨</span>
                 <span style="background:#E9F2E4">🧒</span>
-                <span style="background:#F2E3F5">👵</span>
+                <span class="more">+</span>
               </div>
-              <div style="font-weight:800;font-size:15px;">グループ「うちの家族」</div>
-              <div style="color:var(--muted);font-size:13px;">4人が参加中</div>
-              <div class="invite">UCHI-ARU-2026</div>
-              <div class="mini">招待リンクをコピー</div>
+              <div class="code-label">招待コード</div>
+              <div class="code-box">
+                <b>K</b><b>7</b><b>M</b><b>2</b><b>P</b><b>X</b>
+              </div>
+              <div class="sc-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                招待リンクをコピー
+              </div>
+              <div class="sc-btn ghost">コードを共有</div>
+              <div class="sc-link">uchiaru.com/invite?code=K7M2PX</div>
             </div>
           </div>
         </div>
