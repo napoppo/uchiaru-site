@@ -82,8 +82,9 @@
       --grad: linear-gradient(120deg, #5a9442, #477A35 55%, #2f5523);
     }
     * { box-sizing: border-box; }
-    /* アンカーリンクはヘッダー分だけ下げて表示（スナップは使わない） */
-    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    /* フルスクリーン・パネルごとにスナップ */
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
     body {
       margin: 0; font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
       color: var(--text); background: var(--bg); line-height: 1.8;
